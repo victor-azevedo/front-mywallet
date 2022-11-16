@@ -52,7 +52,8 @@ table {
 }
 button {
 	height: 46px;
-	background: ${accentColor};
+	width: 100%;
+	background-color: ${accentColor};
 	border-radius: 5px;
 	border-style: none;
 	font-size: 20px;
@@ -63,26 +64,30 @@ button {
 	text-align: center;
 	color: #FFFFFF;
 	padding: 0 20px;
-	margin: 10px 0;
+	margin: 8px 0;
 	cursor: pointer;
 	&:disabled {
-		opacity: 0.8;
+		opacity: 0.7;
 	}
 }
 input {
 	height: 58px;
-	background: #FFFFFF;
+	width: 100%;
+	background-color: #FFFFFF;
 	border-radius: 5px;
 	border-style: none;
 	font-size: 20px;
 	font-weight: 400;
-	margin: 10px 0;
+	margin: 8px 0;
 	padding: 0 10px;
 	display: flex;
 	align-items: center;
 	color: ${textColor};
 	&::placeholder{
 		color: ${textColor};
+	}
+	&:disabled {
+		opacity: 0.7;
 	}
 	
 }

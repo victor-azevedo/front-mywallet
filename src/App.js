@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import GlobalStyle from "./assets/styles/GlobalStyle";
 import IncomingPage from "./pages/IncomingPage/IncomingPage";
 import OutgoingPage from "./pages/OutgoingPage/OutgoingPage";
 import SingInPage from "./pages/SignInPage/SignInPage";
@@ -9,6 +10,7 @@ import WalletPage from "./pages/WalletPage/WalletPage";
 function App() {
   return (
     <BrowserRouter>
+      <GlobalStyle />
       <Routes>
         <Route path='/' element={<WalletPage />} />
         <Route path='/sign-in' element={<SingInPage />} />
