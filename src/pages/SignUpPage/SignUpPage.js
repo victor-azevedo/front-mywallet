@@ -22,6 +22,10 @@ const SignUpPage = function () {
 
   function register(e) {
     e.preventDefault();
+    if (form.password !== form.passwordConfirm) {
+      alert("As senhas devem ser iguais");
+      return;
+    }
     setIsLoading(true);
     const body = { ...form };
     axios
