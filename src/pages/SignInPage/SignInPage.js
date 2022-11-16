@@ -2,7 +2,10 @@ import axios from "axios";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { baseColor } from "../../constants/colors";
+import buttonStyle from "../../assets/styles/buttonStyle";
+import formStyle from "../../assets/styles/formStyle";
+import inputStyle from "../../assets/styles/inputStyle";
+import pageStyle from "../../assets/styles/pageStyle";
 import { BASE_URL } from "../../constants/urls";
 
 const SignInPage = function () {
@@ -86,28 +89,22 @@ const SignInPage = function () {
 export default SignInPage;
 
 const SignInStyled = styled.main`
-  width: 100vw;
-  height: 100vh;
-  max-width: 600px;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background-color: ${baseColor};
+  ${pageStyle};
   h1 {
     color: #fff;
     font-size: 32px;
     font-family: "Saira Stencil One";
   }
   form {
-    width: 80%;
-    max-width: 420px;
-    margin: 20px 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    ${formStyle};
+    input {
+      ${inputStyle};
+      width: 100%;
+    }
+    button {
+      ${buttonStyle};
+      width: 100%;
+    }
   }
   p {
     color: #fff;

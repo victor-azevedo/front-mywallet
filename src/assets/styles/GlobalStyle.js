@@ -1,5 +1,4 @@
 import { createGlobalStyle } from "styled-components";
-import { accentColor, textColor } from "../../constants/colors";
 
 const GlobalStyle = createGlobalStyle`
     html, body, div, span, applet, object, iframe,
@@ -48,51 +47,11 @@ table {
 
 * {
 	box-sizing: border-box;
+	color: #FFFFFF;
 	font-family: 'Raleway', sans-serif;
 }
 a{
 	text-decoration: none;
-}
-button {
-	height: 46px;
-	width: 100%;
-	background-color: ${accentColor};
-	border-radius: 5px;
-	border-style: none;
-	font-size: 20px;
-	font-weight: 700;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	text-align: center;
-	color: #FFFFFF;
-	padding: 0 20px;
-	margin: 8px 0;
-	cursor: pointer;
-	&:disabled {
-		opacity: 0.7;
-	}
-}
-input {
-	height: 58px;
-	width: 100%;
-	background-color: #FFFFFF;
-	border-radius: 5px;
-	border-style: none;
-	font-size: 20px;
-	font-weight: 400;
-	margin: 8px 0;
-	padding: 0 10px;
-	display: flex;
-	align-items: center;
-	color: ${textColor};
-	&::placeholder{
-		color: ${textColor};
-	}
-	&:disabled {
-		opacity: 0.7;
-	}
-	
 }
 `;
 
