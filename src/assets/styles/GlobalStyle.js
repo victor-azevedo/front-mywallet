@@ -50,6 +50,9 @@ table {
 	box-sizing: border-box;
 	font-family: 'Raleway', sans-serif;
 }
+a{
+	text-decoration: none;
+}
 button {
 	height: 46px;
 	width: 100%;
