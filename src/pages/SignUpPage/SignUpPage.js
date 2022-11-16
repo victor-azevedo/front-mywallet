@@ -37,7 +37,7 @@ const SignUpPage = function () {
         navigate("/sign-in");
       })
       .catch((err) => {
-        alert(err.response);
+        alert(err.response.data);
         console.log(err.response);
         setIsLoading(false);
       });
@@ -120,6 +120,12 @@ const SignUpStyled = styled.main`
     align-items: center;
     justify-content: center;
   }
-  input {
+  p {
+    color: #fff;
+    margin-top: 20px;
+    font-family: "Raleway";
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 18px;
   }
 `;
