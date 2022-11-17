@@ -26,7 +26,6 @@ const Transactions = function ({ transactions, balance }) {
                   {dayjs(t.date).format("DD/MM")}
                 </span>
                 <span className='transaction-text'>{t.description}</span>
-                Jantar
               </div>
               <Value valueColor={isIncoming({ type: t.type })}>{t.value}</Value>
             </div>
