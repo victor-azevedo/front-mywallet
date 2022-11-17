@@ -26,7 +26,7 @@ const WalletPage = function ({ userData, setUserData }) {
         }
         console.log(err.response);
       });
-  }, []);
+  }, [navigate, userData.requestConfig]);
 
   function renderTransactions() {
     if (!userTransactions.transactions) {
