@@ -8,7 +8,7 @@ import inputStyle from "../../assets/styles/inputStyle";
 import pageStyle from "../../assets/styles/pageStyle";
 import { BASE_URL } from "../../constants/urls";
 
-const SignInPage = function () {
+const SignInPage = function ({ setUserData }) {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [form, setForm] = useState({
@@ -28,7 +28,8 @@ const SignInPage = function () {
     axios
       .post(`${BASE_URL}/sign-in`, body)
       .then((res) => {
-        const respData = {
+        console.log(res.data);
+        const resData = {
           id: res.data._id,
           username: res.data.username,
           email: res.data.email,
@@ -38,7 +39,7 @@ const SignInPage = function () {
             },
           },
         };
-        console.log(respData);
+        setUserData(resData);
         setForm({
           email: "",
           password: "",
@@ -73,6 +74,8 @@ const SignInPage = function () {
           type='password'
           placeholder='Senha'
           disabled={isLoading}
+          minLength='6'
+          maxLength='16'
           required
         ></input>
         <button className='btn' type='submit' disabled={isLoading}>
@@ -101,7 +104,7 @@ const SignInStyled = styled.main`
       ${inputStyle};
       width: 100%;
     }
-    button {
+    .btn {
       ${buttonStyle};
       width: 100%;
     }
