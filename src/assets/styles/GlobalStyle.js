@@ -1,4 +1,5 @@
 import { createGlobalStyle } from "styled-components";
+import { baseColor, textColor } from "../../constants/colors";
 
 const GlobalStyle = createGlobalStyle`
     html, body, div, span, applet, object, iframe,
@@ -28,6 +29,7 @@ footer, header, hgroup, menu, nav, section {
 }
 body {
 	line-height: 1;
+	background-color: ${baseColor};
 }
 ol, ul {
 	list-style: none;
@@ -44,14 +46,18 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
-
 * {
 	box-sizing: border-box;
 	color: #FFFFFF;
 	font-family: 'Raleway', sans-serif;
 }
-a{
+a {
 	text-decoration: none;
+}
+h2{
+	font-size: 26px;
+  line-height: 32px;
+  font-weight: 700;
 }
 `;
 
