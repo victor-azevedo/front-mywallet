@@ -1,5 +1,5 @@
 import { createGlobalStyle } from "styled-components";
-import { baseColor, textColor } from "../../constants/colors";
+import { baseColor } from "../../constants/colors";
 
 const GlobalStyle = createGlobalStyle`
     html, body, div, span, applet, object, iframe,
