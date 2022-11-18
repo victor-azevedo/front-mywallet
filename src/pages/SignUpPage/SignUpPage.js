@@ -59,6 +59,8 @@ const SignUpPage = function () {
           value={form.username}
           onChange={handleForm}
           type='username'
+          minLength={3}
+          maxLength={20}
           placeholder='Nome'
           disabled={isLoading}
           required
@@ -77,6 +79,8 @@ const SignUpPage = function () {
           value={form.password}
           onChange={handleForm}
           type='password'
+          minLength={6}
+          maxLength={12}
           placeholder='Senha'
           disabled={isLoading}
           required
@@ -86,6 +90,8 @@ const SignUpPage = function () {
           value={form.passwordConfirm}
           onChange={handleForm}
           type='password'
+          minLength={6}
+          maxLength={12}
           placeholder='Confirme a senha'
           disabled={isLoading}
           required
