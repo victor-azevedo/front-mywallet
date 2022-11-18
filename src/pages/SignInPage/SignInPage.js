@@ -30,7 +30,7 @@ const SignInPage = function ({ setUserData }) {
       .then((res) => {
         console.log(res.data);
         const resData = {
-          id: res.data._id,
+          id: res.data.id,
           username: res.data.username,
           email: res.data.email,
           requestConfig: {
@@ -75,7 +75,7 @@ const SignInPage = function ({ setUserData }) {
           placeholder='Senha'
           disabled={isLoading}
           minLength='6'
-          maxLength='16'
+          maxLength='12'
           required
         ></input>
         <button className='btn' type='submit' disabled={isLoading}>
