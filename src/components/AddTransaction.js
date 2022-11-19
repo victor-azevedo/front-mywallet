@@ -25,6 +25,7 @@ const AddTransaction = function ({ userData, type }) {
     setIsLoading(true);
     const body = {
       ...form,
+      value: Number(form.value),
       type,
       date: dayjs().format("YYYY-MM-DD"),
     };
