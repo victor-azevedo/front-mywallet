@@ -25,14 +25,16 @@ const WalletPage = function ({ userData, setUserData }) {
       .get(`${BASE_URL}/transactions`, userData.requestConfig)
       .then((res) => {
         setUserTransactions({ ...res.data });
-        console.log(res.data);
       })
       .catch((err) => {
         if (err.response.status === 401) {
           alert("Não autorizado, realize login");
           navigate("/sign-in");
+        } else if (err.response.data.message) {
+          alert(err.response.data.message);
+        } else {
+          alert(err.response.data);
         }
-        console.log(err.response);
       });
   };
 

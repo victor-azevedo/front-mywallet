@@ -29,7 +29,6 @@ const AddTransaction = function ({ userData, type }) {
       type,
       date: dayjs().format("YYYY-MM-DD"),
     };
-    console.log(body);
     axios
       .post(`${BASE_URL}/transactions`, body, userData.requestConfig)
       .then((res) => {
@@ -40,8 +39,11 @@ const AddTransaction = function ({ userData, type }) {
         });
       })
       .catch((err) => {
-        alert(err.response.data);
-        console.log(err.response);
+        if (err.response.data.message) {
+          alert(err.response.data.message);
+        } else {
+          alert(err.response.data);
+        }
         setIsLoading(false);
       });
   }
@@ -82,7 +84,7 @@ const AddTransaction = function ({ userData, type }) {
           type='text'
           placeholder='Descrição'
           disabled={isLoading}
-          minLength='3'
+          minLength='4'
           maxLength='30'
           required
         ></input>

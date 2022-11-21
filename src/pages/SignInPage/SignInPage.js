@@ -28,7 +28,6 @@ const SignInPage = function ({ setUserData }) {
     axios
       .post(`${BASE_URL}/sign-in`, body)
       .then((res) => {
-        console.log(res.data);
         const resData = {
           id: res.data.id,
           username: res.data.username,
@@ -48,8 +47,11 @@ const SignInPage = function ({ setUserData }) {
         navigate("/");
       })
       .catch((err) => {
-        alert(err.response.data);
-        console.log(err.response);
+        if (err.response.data.message) {
+          alert(err.response.data.message);
+        } else {
+          alert(err.response.data);
+        }
         setIsLoading(false);
       });
   }

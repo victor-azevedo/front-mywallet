@@ -44,8 +44,11 @@ const SignUpPage = function () {
         navigate("/sign-in");
       })
       .catch((err) => {
-        alert(err.response.data);
-        console.log(err.response);
+        if (err.response.data.message) {
+          alert(err.response.data.message);
+        } else {
+          alert(err.response.data);
+        }
         setIsLoading(false);
       });
   }

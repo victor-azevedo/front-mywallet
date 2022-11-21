@@ -29,8 +29,11 @@ const Transactions = function ({
       })
 
       .catch((err) => {
-        alert(err.response.data.message);
-        console.log(err.response);
+        if (err.response.data.message) {
+          alert(err.response.data.message);
+        } else {
+          alert(err.response.data);
+        }
       });
   };
 
