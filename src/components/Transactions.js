@@ -1,33 +1,62 @@
+import axios from "axios";
 import dayjs from "dayjs";
 import styled from "styled-components";
 import {
   incomingColor,
-  ligthTextColor,
+  lightTextColor,
   outgoingColor,
   textColor,
 } from "../constants/colors";
+import { BASE_URL } from "../constants/urls";
+const Transactions = function ({
+  transactions,
+  balance,
+  userData,
+  getTransactions,
+}) {
+  const isIncoming = function ({ type, balance }) {
+    if (type === "incoming" || balance >= 0) {
+      return true;
+    }
+    return false;
+  };
 
-const isIncoming = function ({ type, balance }) {
-  if (type === "incoming" || balance >= 0) {
-    return true;
-  }
-  return false;
-};
+  const deleteTransaction = function (id) {
+    axios
+      .delete(`${BASE_URL}/transactions/${id}`, userData.requestConfig)
+      .then((res) => {
+        getTransactions();
+      })
 
-const Transactions = function ({ transactions, balance }) {
+      .catch((err) => {
+        alert(err.response.data.message);
+        console.log(err.response);
+      });
+  };
+
   return (
     <TransactionsStyle>
       <div className='transactions-list'>
         {transactions.map((t) => (
           <Transaction key={t._id}>
             <div className='transaction'>
-              <div className='text'>
+              <div className='box-text'>
                 <span className='transaction-date'>
                   {dayjs(t.date).format("DD/MM")}
                 </span>
                 <span className='transaction-text'>{t.description}</span>
               </div>
-              <Value valueColor={isIncoming({ type: t.type })}>{t.value}</Value>
+              <div className='box-value'>
+                <Value valueColor={isIncoming({ type: t.type })}>
+                  {t.value}
+                </Value>
+                <span
+                  className='transaction-delete'
+                  onClick={() => deleteTransaction(t._id)}
+                >
+                  X
+                </span>
+              </div>
             </div>
           </Transaction>
         ))}
@@ -96,19 +125,32 @@ const Transaction = styled.div`
     justify-content: space-between;
   }
   .transaction-date {
-    color: ${ligthTextColor};
+    color: ${lightTextColor};
+  }
+  .transaction-delete {
+    color: ${lightTextColor};
+    padding: 0 10px;
+    line-height: 32px;
   }
   .transaction-text {
     padding-left: 10px;
   }
-  .text {
+  .box-text {
     padding-right: 10px;
     overflow: hidden;
     text-overflow: ellipsis;
   }
+  .box-value {
+    display: inline-block;
+    padding-left: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 32px;
+  }
 `;
 
 const Value = styled.div`
+  display: inline-block;
   line-height: 32px;
   color: ${(props) => (props.valueColor ? incomingColor : outgoingColor)};
 `;

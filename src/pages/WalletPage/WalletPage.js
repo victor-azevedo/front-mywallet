@@ -5,7 +5,7 @@ import styled from "styled-components";
 import buttonStyle from "../../assets/styles/buttonStyle";
 import pageStyle from "../../assets/styles/pageStyle";
 import Transactions from "../../components/Transactions";
-import { ligthTextColor, textColor } from "../../constants/colors";
+import { lightTextColor, textColor } from "../../constants/colors";
 import { BASE_URL } from "../../constants/urls";
 
 const WalletPage = function ({ userData, setUserData }) {
@@ -13,6 +13,10 @@ const WalletPage = function ({ userData, setUserData }) {
   const [userTransactions, setUserTransactions] = useState({});
 
   useEffect(() => {
+    getTransactions();
+  }, []);
+
+  const getTransactions = function () {
     axios
       .get(`${BASE_URL}/transactions`, userData.requestConfig)
       .then((res) => {
@@ -26,7 +30,7 @@ const WalletPage = function ({ userData, setUserData }) {
         }
         console.log(err.response);
       });
-  }, [navigate, userData.requestConfig]);
+  };
 
   function renderTransactions() {
     if (!userTransactions.transactions) {
@@ -40,6 +44,8 @@ const WalletPage = function ({ userData, setUserData }) {
         <Transactions
           transactions={userTransactions.transactions}
           balance={userTransactions.balance}
+          userData={userData}
+          getTransactions={getTransactions}
         />
       );
     }
@@ -110,7 +116,7 @@ const BoxTransactions = styled.div`
     font-size: 20px;
     line-height: 23px;
     text-align: center;
-    color: ${ligthTextColor};
+    color: ${lightTextColor};
     padding: 36px;
   }
 `;
