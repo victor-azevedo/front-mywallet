@@ -7,6 +7,9 @@ import pageStyle from "../../assets/styles/pageStyle";
 import Transactions from "../../components/Transactions";
 import { lightTextColor, textColor } from "../../constants/colors";
 import { BASE_URL } from "../../constants/urls";
+import { ReactComponent as IncomingIcon } from "../../assets/images/minus.svg";
+import { ReactComponent as OutgoingIcon } from "../../assets/images/plus.svg";
+import { ReactComponent as LogoutIcon } from "../../assets/images/logout.svg";
 
 const WalletPage = function ({ userData, setUserData }) {
   const navigate = useNavigate();
@@ -66,16 +69,16 @@ const WalletPage = function ({ userData, setUserData }) {
     <WalletPageStyled>
       <Header>
         <h2>Olá, {userData.username}</h2>
-        <span onClick={logout}>logout</span>
+        <StyledLogoutIcon onClick={logout} />
       </Header>
       <BoxTransactions>{renderTransactions()}</BoxTransactions>
       <BoxButtons>
         <button onClick={() => navigate("/incoming")}>
-          <span>icon</span>
+          <StyledIncomingIcon />
           <span>Nova entrada</span>
         </button>
         <button onClick={() => navigate("/outgoing")}>
-          <span>icon</span>
+          <StyledOutgoingIcon />
           <span>Nova saída</span>
         </button>
       </BoxButtons>
@@ -145,5 +148,32 @@ const BoxButtons = styled.div`
       max-width: 85px;
       text-align: left;
     }
+  }
+`;
+
+const StyledIncomingIcon = styled(IncomingIcon)`
+  height: 28px;
+  path {
+    fill: #fff;
+    stroke-width: 48;
+  }
+`;
+
+const StyledOutgoingIcon = styled(OutgoingIcon)`
+  height: 28px;
+  path {
+    fill: #fff;
+    stroke-width: 48;
+  }
+`;
+
+const StyledLogoutIcon = styled(LogoutIcon)`
+  height: 28px;
+  path {
+    fill: #fff;
+    stroke-width: 48;
+  }
+  &:hover {
+    cursor: pointer;
   }
 `;

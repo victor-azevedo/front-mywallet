@@ -131,6 +131,9 @@ const Transaction = styled.div`
     color: ${lightTextColor};
     padding: 0 10px;
     line-height: 32px;
+    &:hover {
+      cursor: pointer;
+    }
   }
   .transaction-text {
     padding-left: 10px;
