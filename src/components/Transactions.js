@@ -7,7 +7,7 @@ import {
   outgoingColor,
   textColor,
 } from "../constants/colors";
-import { BASE_URL } from "../constants/urls";
+
 const Transactions = function ({
   transactions,
   balance,
@@ -23,7 +23,10 @@ const Transactions = function ({
 
   const deleteTransaction = function (id) {
     axios
-      .delete(`${BASE_URL}/transactions/${id}`, userData.requestConfig)
+      .delete(
+        `${process.env.REACT_APP_BASE_URL}/transactions/${id}`,
+        userData.requestConfig
+      )
       .then((res) => {
         getTransactions();
       })
@@ -39,22 +42,22 @@ const Transactions = function ({
 
   return (
     <TransactionsStyle>
-      <div className='transactions-list'>
+      <div className="transactions-list">
         {transactions.map((t) => (
           <Transaction key={t._id}>
-            <div className='transaction'>
-              <div className='box-text'>
-                <span className='transaction-date'>
+            <div className="transaction">
+              <div className="box-text">
+                <span className="transaction-date">
                   {dayjs(t.date).format("DD/MM")}
                 </span>
-                <span className='transaction-text'>{t.description}</span>
+                <span className="transaction-text">{t.description}</span>
               </div>
-              <div className='box-value'>
+              <div className="box-value">
                 <Value valueColor={isIncoming({ type: t.type })}>
                   {t.value}
                 </Value>
                 <span
-                  className='transaction-delete'
+                  className="transaction-delete"
                   onClick={() => deleteTransaction(t._id)}
                 >
                   X
@@ -64,8 +67,8 @@ const Transactions = function ({
           </Transaction>
         ))}
       </div>
-      <div className='balance'>
-        <span className='balance-text'>Saldo</span>
+      <div className="balance">
+        <span className="balance-text">Saldo</span>
         <Value valueColor={isIncoming({ balance })}>{balance}</Value>
       </div>
     </TransactionsStyle>

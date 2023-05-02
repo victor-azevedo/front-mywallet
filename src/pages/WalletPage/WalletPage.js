@@ -3,14 +3,13 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { ReactComponent as LogoutIcon } from "../../assets/images/logout.svg";
+import { ReactComponent as IncomingIcon } from "../../assets/images/minus.svg";
+import { ReactComponent as OutgoingIcon } from "../../assets/images/plus.svg";
 import buttonStyle from "../../assets/styles/buttonStyle";
 import pageStyle from "../../assets/styles/pageStyle";
 import Transactions from "../../components/Transactions";
 import { lightTextColor, textColor } from "../../constants/colors";
-import { BASE_URL } from "../../constants/urls";
-import { ReactComponent as IncomingIcon } from "../../assets/images/minus.svg";
-import { ReactComponent as OutgoingIcon } from "../../assets/images/plus.svg";
-import { ReactComponent as LogoutIcon } from "../../assets/images/logout.svg";
 
 const WalletPage = function ({ userData, setUserData }) {
   const navigate = useNavigate();
@@ -22,7 +21,10 @@ const WalletPage = function ({ userData, setUserData }) {
 
   const getTransactions = function () {
     axios
-      .get(`${BASE_URL}/transactions`, userData.requestConfig)
+      .get(
+        `${process.env.REACT_APP_BASE_URL}/transactions`,
+        userData.requestConfig
+      )
       .then((res) => {
         setUserTransactions({ ...res.data });
       })
@@ -41,7 +43,7 @@ const WalletPage = function ({ userData, setUserData }) {
   function renderTransactions() {
     if (!userTransactions.transactions) {
       return (
-        <p className='transactions--none'>
+        <p className="transactions--none">
           Não há registros de entrada ou saída
         </p>
       );

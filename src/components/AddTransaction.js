@@ -6,7 +6,6 @@ import styled from "styled-components";
 import buttonStyle from "../assets/styles/buttonStyle";
 import inputStyle from "../assets/styles/inputStyle";
 import pageStyle from "../assets/styles/pageStyle";
-import { BASE_URL } from "../constants/urls";
 
 const AddTransaction = function ({ userData, type }) {
   const [isLoading, setIsLoading] = useState(false);
@@ -30,7 +29,11 @@ const AddTransaction = function ({ userData, type }) {
       date: dayjs().format("YYYY-MM-DD"),
     };
     axios
-      .post(`${BASE_URL}/transactions`, body, userData.requestConfig)
+      .post(
+        `${process.env.REACT_APP_BASE_URL}/transactions`,
+        body,
+        userData.requestConfig
+      )
       .then((res) => {
         setIsLoading(false);
         setForm({
@@ -61,34 +64,34 @@ const AddTransaction = function ({ userData, type }) {
     <AddTransactionStyled>
       <Header>
         <h2>Nova {renderTypeText()}</h2>
-        <Link to='/'>
+        <Link to="/">
           <span>back</span>
         </Link>
       </Header>
       <Form onSubmit={sendTransaction}>
         <input
-          name='value'
+          name="value"
           value={form.value}
           onChange={handleForm}
-          type='number'
-          step='0.01'
-          min='0'
-          placeholder='Valor'
+          type="number"
+          step="0.01"
+          min="0"
+          placeholder="Valor"
           disabled={isLoading}
           required
         ></input>
         <input
-          name='description'
+          name="description"
           value={form.description}
           onChange={handleForm}
-          type='text'
-          placeholder='Descrição'
+          type="text"
+          placeholder="Descrição"
           disabled={isLoading}
-          minLength='4'
-          maxLength='30'
+          minLength="4"
+          maxLength="30"
           required
         ></input>
-        <button className='btn' type='submit' disabled={isLoading}>
+        <button className="btn" type="submit" disabled={isLoading}>
           Salvar {renderTypeText()}
         </button>
       </Form>

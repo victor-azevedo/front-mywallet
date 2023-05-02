@@ -6,7 +6,6 @@ import buttonStyle from "../../assets/styles/buttonStyle";
 import formStyle from "../../assets/styles/formStyle";
 import inputStyle from "../../assets/styles/inputStyle";
 import pageStyle from "../../assets/styles/pageStyle";
-import { BASE_URL } from "../../constants/urls";
 
 const SignInPage = function ({ setUserData }) {
   const navigate = useNavigate();
@@ -26,7 +25,7 @@ const SignInPage = function ({ setUserData }) {
     setIsLoading(true);
     const body = { ...form };
     axios
-      .post(`${BASE_URL}/sign-in`, body)
+      .post(`${process.env.REACT_APP_BASE_URL}/sign-in`, body)
       .then((res) => {
         const resData = {
           id: res.data.id,
@@ -61,31 +60,31 @@ const SignInPage = function ({ setUserData }) {
       <h1>My Wallet</h1>
       <form onSubmit={login}>
         <input
-          name='email'
+          name="email"
           value={form.email}
           onChange={handleForm}
-          type='email'
-          placeholder='E-mail'
+          type="email"
+          placeholder="E-mail"
           disabled={isLoading}
           required
         ></input>
         <input
-          name='password'
+          name="password"
           value={form.password}
           onChange={handleForm}
-          type='password'
-          placeholder='Senha'
+          type="password"
+          placeholder="Senha"
           disabled={isLoading}
-          minLength='6'
-          maxLength='12'
+          minLength="6"
+          maxLength="12"
           required
         ></input>
-        <button className='btn' type='submit' disabled={isLoading}>
+        <button className="btn" type="submit" disabled={isLoading}>
           Entrar
         </button>
       </form>
-      <Link to='/sign-up'>
-        <p className='text-accent'>Primeira vez? Cadastre-se!</p>
+      <Link to="/sign-up">
+        <p className="text-accent">Primeira vez? Cadastre-se!</p>
       </Link>
     </SignInStyled>
   );

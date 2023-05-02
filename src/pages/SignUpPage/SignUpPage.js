@@ -6,7 +6,6 @@ import buttonStyle from "../../assets/styles/buttonStyle";
 import formStyle from "../../assets/styles/formStyle";
 import inputStyle from "../../assets/styles/inputStyle";
 import pageStyle from "../../assets/styles/pageStyle";
-import { BASE_URL } from "../../constants/urls";
 
 const SignUpPage = function () {
   const navigate = useNavigate();
@@ -32,7 +31,7 @@ const SignUpPage = function () {
     setIsLoading(true);
     const body = { ...form };
     axios
-      .post(`${BASE_URL}/sign-up`, body)
+      .post(`${process.env.REACT_APP_BASE_URL}/sign-up`, body)
       .then((res) => {
         setForm({
           email: "",
@@ -58,53 +57,53 @@ const SignUpPage = function () {
       <h1>My Wallet</h1>
       <form onSubmit={register}>
         <input
-          name='username'
+          name="username"
           value={form.username}
           onChange={handleForm}
-          type='username'
+          type="username"
           minLength={3}
           maxLength={20}
-          placeholder='Nome'
+          placeholder="Nome"
           disabled={isLoading}
           required
         ></input>
         <input
-          name='email'
+          name="email"
           value={form.email}
           onChange={handleForm}
-          type='email'
-          placeholder='E-mail'
+          type="email"
+          placeholder="E-mail"
           disabled={isLoading}
           required
         ></input>
         <input
-          name='password'
+          name="password"
           value={form.password}
           onChange={handleForm}
-          type='password'
+          type="password"
           minLength={6}
           maxLength={12}
-          placeholder='Senha'
+          placeholder="Senha"
           disabled={isLoading}
           required
         ></input>
         <input
-          name='passwordConfirm'
+          name="passwordConfirm"
           value={form.passwordConfirm}
           onChange={handleForm}
-          type='password'
+          type="password"
           minLength={6}
           maxLength={12}
-          placeholder='Confirme a senha'
+          placeholder="Confirme a senha"
           disabled={isLoading}
           required
         ></input>
-        <button className='btn' type='submit' disabled={isLoading}>
+        <button className="btn" type="submit" disabled={isLoading}>
           Cadastrar
         </button>
       </form>
-      <Link to='/sign-in'>
-        <p className='text-accent'>Já tem uma conta? Entre agora!</p>
+      <Link to="/sign-in">
+        <p className="text-accent">Já tem uma conta? Entre agora!</p>
       </Link>
     </SignUpStyled>
   );
