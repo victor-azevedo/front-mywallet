@@ -4,7 +4,7 @@ import { baseColor } from "../../constants/colors";
 const pageStyle = css`
   width: 100vw;
   height: 100vh;
-  max-width: 600px;
+  max-width: 400px;
   padding: 20px;
   margin: 0 auto;
   display: flex;
