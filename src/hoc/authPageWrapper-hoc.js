@@ -9,7 +9,6 @@ export default function authPageWrapper(Page) {
 
     useEffect(() => {
       if (!isLoadingAuth && !isAuthenticated) {
-        alert("Não autorizado, realize login");
         navigate("/sign-in");
       }
       // eslint-disable-next-line react-hooks/exhaustive-deps
