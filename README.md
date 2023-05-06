@@ -10,6 +10,9 @@ My Wallet is a web browser application with which you can manage your personal e
 
 You can access the back-end repository at [Back-End APP](https://github.com/victor-azevedo/back-mywallet)
 
+[Deploy](https://victor-dev-mywallet.vercel.app/sign-in)
+Note: you must run the back-end server in your machine. Access the backend repository and follow the steps to run the server.
+
 ## How to run
 
 #### Requirements
@@ -39,7 +42,7 @@ npm start
 ```
 
 Application will run in default PORT: 3000.
-Obs.: Default API URL: http://localhost:4000
+Note: Default API URL: http://localhost:4000
 
 ## Samples
 
