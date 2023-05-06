@@ -6,16 +6,16 @@ Front-end for My Wallet, a finance manager. :moneybag:
 
 My Wallet is a web browser application with which you can manage your personal expenses and income. This application was build with `Create React App` and styled with `styled-components`.
 
-[Figma Layout](https://www.figma.com/file/p37uJdpZWRLED7YEwDFfUd/MyWallet?type=design&t=MA6lwbQegpQapTH1-0){:target="\_blank"}
+[Figma Layout](https://www.figma.com/file/p37uJdpZWRLED7YEwDFfUd/MyWallet?type=design&t=MA6lwbQegpQapTH1-0){:target="\_blank" rel="noopener"}
 
-You can access the back-end repository at [Back-End APP](https://github.com/victor-azevedo/back-mywallet){:target="\_blank"}
+You can access the back-end repository at [Back-End APP](https://github.com/victor-azevedo/back-mywallet){:target="\_blank" rel="noopener"}
 
 ## How to run
 
 #### Requirements
 
 - Have Node.js installed in your machine.
-- [Run back-end application](https://github.com/victor-azevedo/back-mywallet){:target="\_blank"}
+- [Run back-end application](https://github.com/victor-azevedo/back-mywallet){:target="\_blank" rel="noopener"}
 
 1. Clone this repository;
 
