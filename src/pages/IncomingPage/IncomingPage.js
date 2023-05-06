@@ -1,8 +1,8 @@
-import AddTransaction from "../../components/AddTransaction";
+import AddOrEditTransaction from "../../components/AddOrEditTransaction";
 import authPageWrapper from "../../hoc/authPageWrapper-hoc";
 
 const IncomingPage = function () {
-  return <AddTransaction type="incoming" />;
+  return <AddOrEditTransaction type="incoming" />;
 };
 
 export default authPageWrapper(IncomingPage);

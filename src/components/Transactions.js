@@ -1,6 +1,7 @@
 import dayjs from "dayjs";
 import styled from "styled-components";
 
+import { useNavigate } from "react-router-dom";
 import {
   incomingColor,
   lightTextColor,
@@ -10,6 +11,8 @@ import {
 import { api } from "../services/api-service";
 
 const Transactions = function ({ transactions, balance, getTransactions }) {
+  const navigate = useNavigate();
+
   const isIncoming = function ({ type, balance }) {
     if (type === "incoming" || balance >= 0) {
       return true;
@@ -33,6 +36,13 @@ const Transactions = function ({ transactions, balance, getTransactions }) {
       });
   };
 
+  const editTransaction = function (transaction) {
+    const paramsString = "edit=true";
+    const searchParams = new URLSearchParams(paramsString);
+    Object.entries(transaction).forEach(([k, v]) => searchParams.set(k, v));
+    navigate(`/${transaction.type}?${searchParams}`);
+  };
+
   function parseValueToCurrency(value) {
     const formatter = new Intl.NumberFormat("pt-BR", {
       style: "currency",
@@ -49,7 +59,7 @@ const Transactions = function ({ transactions, balance, getTransactions }) {
             {transactions.map((t) => (
               <Transaction key={t._id}>
                 <div className="transaction">
-                  <div className="box-text">
+                  <div className="box-text" onClick={() => editTransaction(t)}>
                     <span className="transaction-date">
                       {dayjs(t.date).format("DD/MM")}
                     </span>

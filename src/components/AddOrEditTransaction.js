@@ -1,21 +1,27 @@
 import { useState } from "react";
 import CurrencyInput from "react-currency-input-field";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import styled from "styled-components";
 
 import { RollbackOutlined } from "@ant-design/icons";
+import { useRef } from "react";
 import buttonStyle from "../assets/styles/buttonStyle";
 import inputStyle from "../assets/styles/inputStyle";
 import pageStyle from "../assets/styles/pageStyle";
 import useApiAuth from "../hooks/useApiAuth-hook";
 
-const AddTransaction = function ({ type }) {
+const AddOrEditTransaction = function ({ type }) {
   const apiAuth = useApiAuth();
+
+  const navigate = useNavigate();
+
+  const [searchParams] = useSearchParams();
+  const isTransactionEdition = useRef(searchParams.get("edit"));
 
   const [isLoading, setIsLoading] = useState(false);
   const [form, setForm] = useState({
-    value: null,
-    description: "",
+    value: searchParams.get("valueInCents") / 100 || null,
+    description: searchParams.get("description") || "",
   });
 
   function handleForm(e) {
@@ -23,24 +29,42 @@ const AddTransaction = function ({ type }) {
     setForm({ ...form, [name]: value });
   }
 
-  function sendTransaction(e) {
-    e.preventDefault();
-    setIsLoading(true);
-    const body = {
+  function handleRequestPostOrPatch() {
+    const httpMethod = isTransactionEdition.current ? "patch" : "post";
+
+    const urlParam = isTransactionEdition.current
+      ? searchParams.get("_id")
+      : "";
+
+    const bodyPost = {
       description: form.description,
       valueInCents: form.value ? Number(form.value.replace(",", "")) : 0,
       type,
       date: new Date().toISOString(),
     };
+    const bodyPatch = {
+      description: form.description,
+      valueInCents: form.value ? Number(form.value.replace(",", "")) : 0,
+    };
+    const body = isTransactionEdition.current ? bodyPatch : bodyPost;
 
-    apiAuth
-      .post("/transactions", body)
+    return { httpMethod, urlParam, body };
+  }
+
+  function sendTransaction(e) {
+    e.preventDefault();
+    setIsLoading(true);
+
+    const { httpMethod, urlParam, body } = handleRequestPostOrPatch();
+
+    apiAuth[httpMethod](`/transactions/${urlParam}`, body)
       .then((res) => {
         setIsLoading(false);
         setForm({
           value: null,
           description: "",
         });
+        navigate("/");
       })
       .catch((err) => {
         if (err.response.data.message) {
@@ -64,7 +88,9 @@ const AddTransaction = function ({ type }) {
   return (
     <AddTransactionStyled>
       <Header>
-        <h2>Nova {renderTypeText()}</h2>
+        <h2>
+          {isTransactionEdition.current ? "Editar" : "Nova"} {renderTypeText()}
+        </h2>
         <Link to="/">
           <RollbackOutlined />
         </Link>
@@ -102,7 +128,7 @@ const AddTransaction = function ({ type }) {
   );
 };
 
-export default AddTransaction;
+export default AddOrEditTransaction;
 
 const AddTransactionStyled = styled.main`
   ${pageStyle};
