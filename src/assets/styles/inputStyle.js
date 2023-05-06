@@ -1,5 +1,5 @@
 import { css } from "styled-components";
-import { textColor } from "../../constants/colors";
+import { lightTextColor, textColor } from "../../constants/colors";
 
 const inputStyle = css`
   height: 58px;
@@ -13,8 +13,8 @@ const inputStyle = css`
   display: flex;
   align-items: center;
   color: ${textColor};
-  &::placeholder {
-    color: ${textColor};
+  &::placeholder :-ms-input-placeholder ::-ms-input-placeholder {
+    color: ${lightTextColor};
   }
   &:disabled {
     opacity: 0.7;

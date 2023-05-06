@@ -1,20 +1,22 @@
-import axios from "axios";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
+
 import buttonStyle from "../../assets/styles/buttonStyle";
 import formStyle from "../../assets/styles/formStyle";
 import inputStyle from "../../assets/styles/inputStyle";
 import pageStyle from "../../assets/styles/pageStyle";
+import { api } from "../../services/api-service";
 
 const SignUpPage = function () {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
+
   const [form, setForm] = useState({
     username: "",
     email: "",
     password: "",
-    passwordConfirm: "",
+    confirmPassword: "",
   });
 
   function handleForm(e) {
@@ -24,14 +26,14 @@ const SignUpPage = function () {
 
   function register(e) {
     e.preventDefault();
-    if (form.password !== form.passwordConfirm) {
+    if (form.password !== form.confirmPassword) {
       alert("As senhas devem ser iguais");
       return;
     }
     setIsLoading(true);
     const body = { ...form };
-    axios
-      .post(`${process.env.REACT_APP_BASE_URL}/sign-up`, body)
+    api
+      .post("/auth/sign-up", body)
       .then((res) => {
         setForm({
           email: "",
@@ -88,8 +90,8 @@ const SignUpPage = function () {
           required
         ></input>
         <input
-          name="passwordConfirm"
-          value={form.passwordConfirm}
+          name="confirmPassword"
+          value={form.confirmPassword}
           onChange={handleForm}
           type="password"
           minLength={6}

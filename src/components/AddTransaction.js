@@ -1,16 +1,20 @@
-import axios from "axios";
-import dayjs from "dayjs";
 import { useState } from "react";
+import CurrencyInput from "react-currency-input-field";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+
+import { RollbackOutlined } from "@ant-design/icons";
 import buttonStyle from "../assets/styles/buttonStyle";
 import inputStyle from "../assets/styles/inputStyle";
 import pageStyle from "../assets/styles/pageStyle";
+import useApiAuth from "../hooks/useApiAuth-hook";
 
-const AddTransaction = function ({ userData, type }) {
+const AddTransaction = function ({ type }) {
+  const apiAuth = useApiAuth();
+
   const [isLoading, setIsLoading] = useState(false);
   const [form, setForm] = useState({
-    value: "",
+    value: null,
     description: "",
   });
 
@@ -23,21 +27,18 @@ const AddTransaction = function ({ userData, type }) {
     e.preventDefault();
     setIsLoading(true);
     const body = {
-      ...form,
-      value: Number(form.value),
+      description: form.description,
+      valueInCents: form.value ? Number(form.value.replace(",", "")) : 0,
       type,
-      date: dayjs().format("YYYY-MM-DD"),
+      date: new Date().toISOString(),
     };
-    axios
-      .post(
-        `${process.env.REACT_APP_BASE_URL}/transactions`,
-        body,
-        userData.requestConfig
-      )
+
+    apiAuth
+      .post("/transactions", body)
       .then((res) => {
         setIsLoading(false);
         setForm({
-          value: "",
+          value: null,
           description: "",
         });
       })
@@ -65,21 +66,23 @@ const AddTransaction = function ({ userData, type }) {
       <Header>
         <h2>Nova {renderTypeText()}</h2>
         <Link to="/">
-          <span>back</span>
+          <RollbackOutlined />
         </Link>
       </Header>
       <Form onSubmit={sendTransaction}>
-        <input
+        <CurrencyInput
           name="value"
-          value={form.value}
-          onChange={handleForm}
-          type="number"
-          step="0.01"
-          min="0"
+          allowNegativeValue={false}
+          decimalSeparator=","
+          groupSeparator="."
+          decimalsLimit={2}
+          decimalScale={2}
           placeholder="Valor"
+          value={form.value}
+          onValueChange={(value) => setForm({ ...form, value })}
           disabled={isLoading}
           required
-        ></input>
+        ></CurrencyInput>
         <input
           name="description"
           value={form.description}
@@ -111,6 +114,9 @@ const Header = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  h2 {
+    text-transform: capitalize;
+  }
 `;
 
 const Form = styled.form`

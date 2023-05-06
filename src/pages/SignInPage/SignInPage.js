@@ -1,14 +1,18 @@
-import axios from "axios";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
+
 import buttonStyle from "../../assets/styles/buttonStyle";
 import formStyle from "../../assets/styles/formStyle";
 import inputStyle from "../../assets/styles/inputStyle";
 import pageStyle from "../../assets/styles/pageStyle";
+import useAuth from "../../hooks/useAuth-hook";
+import { api } from "../../services/api-service";
 
-const SignInPage = function ({ setUserData }) {
+const SignInPage = function () {
+  const { signIn } = useAuth();
   const navigate = useNavigate();
+
   const [isLoading, setIsLoading] = useState(false);
   const [form, setForm] = useState({
     email: "",
@@ -24,20 +28,10 @@ const SignInPage = function ({ setUserData }) {
     e.preventDefault();
     setIsLoading(true);
     const body = { ...form };
-    axios
-      .post(`${process.env.REACT_APP_BASE_URL}/sign-in`, body)
+    api
+      .post("/auth/sign-in", body)
       .then((res) => {
-        const resData = {
-          id: res.data.id,
-          username: res.data.username,
-          email: res.data.email,
-          requestConfig: {
-            headers: {
-              Authorization: `Bearer ${res.data.token}`,
-            },
-          },
-        };
-        setUserData(resData);
+        signIn(res.data.token);
         setForm({
           email: "",
           password: "",

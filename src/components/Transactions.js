@@ -1,19 +1,15 @@
-import axios from "axios";
 import dayjs from "dayjs";
 import styled from "styled-components";
+
 import {
   incomingColor,
   lightTextColor,
   outgoingColor,
   textColor,
 } from "../constants/colors";
+import { api } from "../services/api-service";
 
-const Transactions = function ({
-  transactions,
-  balance,
-  userData,
-  getTransactions,
-}) {
+const Transactions = function ({ transactions, balance, getTransactions }) {
   const isIncoming = function ({ type, balance }) {
     if (type === "incoming" || balance >= 0) {
       return true;
@@ -22,11 +18,8 @@ const Transactions = function ({
   };
 
   const deleteTransaction = function (id) {
-    axios
-      .delete(
-        `${process.env.REACT_APP_BASE_URL}/transactions/${id}`,
-        userData.requestConfig
-      )
+    api
+      .delete(`/transactions/${id}`)
       .then((res) => {
         getTransactions();
       })
@@ -40,38 +33,56 @@ const Transactions = function ({
       });
   };
 
+  function parseValueToCurrency(value) {
+    const formatter = new Intl.NumberFormat("pt-BR", {
+      style: "currency",
+      currency: "BRL",
+    });
+    return formatter.format(value / 100);
+  }
+
   return (
-    <TransactionsStyle>
-      <div className="transactions-list">
-        {transactions.map((t) => (
-          <Transaction key={t._id}>
-            <div className="transaction">
-              <div className="box-text">
-                <span className="transaction-date">
-                  {dayjs(t.date).format("DD/MM")}
-                </span>
-                <span className="transaction-text">{t.description}</span>
-              </div>
-              <div className="box-value">
-                <Value valueColor={isIncoming({ type: t.type })}>
-                  {t.value}
-                </Value>
-                <span
-                  className="transaction-delete"
-                  onClick={() => deleteTransaction(t._id)}
-                >
-                  X
-                </span>
-              </div>
-            </div>
-          </Transaction>
-        ))}
-      </div>
-      <div className="balance">
-        <span className="balance-text">Saldo</span>
-        <Value valueColor={isIncoming({ balance })}>{balance}</Value>
-      </div>
-    </TransactionsStyle>
+    <>
+      {transactions.length > 0 ? (
+        <TransactionsStyle>
+          <div className="transactions-list">
+            {transactions.map((t) => (
+              <Transaction key={t._id}>
+                <div className="transaction">
+                  <div className="box-text">
+                    <span className="transaction-date">
+                      {dayjs(t.date).format("DD/MM")}
+                    </span>
+                    <span className="transaction-text">{t.description}</span>
+                  </div>
+                  <div className="box-value">
+                    <Value valueColor={isIncoming({ type: t.type })}>
+                      {parseValueToCurrency(t.valueInCents)}
+                    </Value>
+                    <span
+                      className="transaction-delete"
+                      onClick={() => deleteTransaction(t._id)}
+                    >
+                      X
+                    </span>
+                  </div>
+                </div>
+              </Transaction>
+            ))}
+          </div>
+          <div className="balance">
+            <span className="balance-text">Saldo</span>
+            <Value valueColor={isIncoming({ balance })}>
+              {parseValueToCurrency(balance)}
+            </Value>
+          </div>
+        </TransactionsStyle>
+      ) : (
+        <p className="transactions--none">
+          Não há registros de entrada ou saída
+        </p>
+      )}
+    </>
   );
 };
 
@@ -123,7 +134,7 @@ const TransactionsStyle = styled.div`
 const Transaction = styled.div`
   span {
     color: ${textColor};
-    font-size: 16px;
+    font-size: 18px;
     line-height: 32px;
   }
   .transaction {
@@ -161,5 +172,6 @@ const Transaction = styled.div`
 const Value = styled.div`
   display: inline-block;
   line-height: 32px;
+  font-size: 18px;
   color: ${(props) => (props.valueColor ? incomingColor : outgoingColor)};
 `;

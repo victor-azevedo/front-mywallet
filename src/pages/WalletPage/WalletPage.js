@@ -1,30 +1,44 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import axios from "axios";
-import { useEffect, useState } from "react";
+import {
+  ExportOutlined,
+  MinusCircleOutlined,
+  PlusCircleOutlined,
+} from "@ant-design/icons";
+import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { ReactComponent as LogoutIcon } from "../../assets/images/logout.svg";
-import { ReactComponent as IncomingIcon } from "../../assets/images/minus.svg";
-import { ReactComponent as OutgoingIcon } from "../../assets/images/plus.svg";
+
 import buttonStyle from "../../assets/styles/buttonStyle";
 import pageStyle from "../../assets/styles/pageStyle";
 import Transactions from "../../components/Transactions";
 import { lightTextColor, textColor } from "../../constants/colors";
+import authPageWrapper from "../../hoc/authPageWrapper-hoc";
+import useApiAuth from "../../hooks/useApiAuth-hook";
+import useAuth from "../../hooks/useAuth-hook";
 
-const WalletPage = function ({ userData, setUserData }) {
+const initialTransactionsState = {
+  userId: null,
+  balance: null,
+  transactions: [],
+};
+
+const WalletPage = function () {
+  const { userData, signOut } = useAuth();
+  const apiAuth = useApiAuth();
   const navigate = useNavigate();
-  const [userTransactions, setUserTransactions] = useState({});
+
+  const [userTransactions, setUserTransactions] = useState(
+    initialTransactionsState
+  );
+  const [isLoadingData, setIsLoadingData] = useState(true);
 
   useEffect(() => {
     getTransactions();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const getTransactions = function () {
-    axios
-      .get(
-        `${process.env.REACT_APP_BASE_URL}/transactions`,
-        userData.requestConfig
-      )
+  const getTransactions = useCallback(() => {
+    apiAuth
+      .get("/transactions")
       .then((res) => {
         setUserTransactions({ ...res.data });
       })
@@ -37,61 +51,52 @@ const WalletPage = function ({ userData, setUserData }) {
         } else {
           alert(err.response.data);
         }
-      });
-  };
-
-  function renderTransactions() {
-    if (!userTransactions.transactions) {
-      return (
-        <p className="transactions--none">
-          Não há registros de entrada ou saída
-        </p>
-      );
-    } else {
-      return (
-        <Transactions
-          transactions={userTransactions.transactions}
-          balance={userTransactions.balance}
-          userData={userData}
-          getTransactions={getTransactions}
-        />
-      );
-    }
-  }
+      })
+      .finally(() => setIsLoadingData(false));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const logout = function () {
-    setUserData({
-      requestConfig: {
-        headers: {
-          Authorization: `Bearer `,
-        },
-      },
-    });
+    signOut();
     navigate("sign-in");
   };
 
   return (
-    <WalletPageStyled>
-      <Header>
-        <h2>Olá, {userData.username}</h2>
-        <StyledLogoutIcon onClick={logout} />
-      </Header>
-      <BoxTransactions>{renderTransactions()}</BoxTransactions>
-      <BoxButtons>
-        <button onClick={() => navigate("/incoming")}>
-          <StyledIncomingIcon />
-          <span>Nova entrada</span>
-        </button>
-        <button onClick={() => navigate("/outgoing")}>
-          <StyledOutgoingIcon />
-          <span>Nova saída</span>
-        </button>
-      </BoxButtons>
-    </WalletPageStyled>
+    <>
+      {!isLoadingData ? (
+        <WalletPageStyled>
+          <Header>
+            <h2>Olá, {userData.username}</h2>
+            <div onClick={logout}>
+              <ExportOutlined />
+            </div>
+          </Header>
+          <BoxTransactions>
+            <Transactions
+              transactions={userTransactions.transactions}
+              balance={userTransactions.balance}
+              getTransactions={getTransactions}
+            />
+          </BoxTransactions>
+          <BoxButtons>
+            <button onClick={() => navigate("/incoming")}>
+              <PlusCircleOutlined />
+              <span>Nova entrada</span>
+            </button>
+            <button onClick={() => navigate("/outgoing")}>
+              <MinusCircleOutlined />
+              <span>Nova saída</span>
+            </button>
+          </BoxButtons>
+        </WalletPageStyled>
+      ) : (
+        ""
+      )}
+    </>
   );
 };
 
-export default WalletPage;
+export default authPageWrapper(WalletPage);
 
 const WalletPageStyled = styled.main`
   ${pageStyle};
@@ -153,32 +158,5 @@ const BoxButtons = styled.div`
       max-width: 85px;
       text-align: left;
     }
-  }
-`;
-
-const StyledIncomingIcon = styled(IncomingIcon)`
-  height: 28px;
-  path {
-    fill: #fff;
-    stroke-width: 48;
-  }
-`;
-
-const StyledOutgoingIcon = styled(OutgoingIcon)`
-  height: 28px;
-  path {
-    fill: #fff;
-    stroke-width: 48;
-  }
-`;
-
-const StyledLogoutIcon = styled(LogoutIcon)`
-  height: 28px;
-  path {
-    fill: #fff;
-    stroke-width: 48;
-  }
-  &:hover {
-    cursor: pointer;
   }
 `;

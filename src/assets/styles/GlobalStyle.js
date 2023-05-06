@@ -59,6 +59,9 @@ h2{
   line-height: 32px;
   font-weight: 700;
 }
+.anticon{
+	font-size: 28px;
+}
 `;
 
 export default GlobalStyle;

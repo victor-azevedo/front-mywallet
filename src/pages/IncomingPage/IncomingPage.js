@@ -1,7 +1,8 @@
 import AddTransaction from "../../components/AddTransaction";
+import authPageWrapper from "../../hoc/authPageWrapper-hoc";
 
-const IncomingPage = function ({ userData }) {
-  return <AddTransaction userData={userData} type='incoming' />;
+const IncomingPage = function () {
+  return <AddTransaction type="incoming" />;
 };
 
-export default IncomingPage;
+export default authPageWrapper(IncomingPage);
