@@ -61,6 +61,9 @@ h2{
 }
 .anticon{
 	font-size: 28px;
+	:hover{
+		cursor: pointer;
+	}
 }
 `;
 

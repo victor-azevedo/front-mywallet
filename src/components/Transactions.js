@@ -169,6 +169,9 @@ const Transaction = styled.div`
     padding-right: 10px;
     overflow: hidden;
     text-overflow: ellipsis;
+    :hover {
+      cursor: pointer;
+    }
   }
   .box-value {
     display: inline-block;
