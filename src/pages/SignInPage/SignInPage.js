@@ -6,6 +6,7 @@ import buttonStyle from "../../assets/styles/buttonStyle";
 import formStyle from "../../assets/styles/formStyle";
 import inputStyle from "../../assets/styles/inputStyle";
 import pageStyle from "../../assets/styles/pageStyle";
+import noAuthPageWrapper from "../../hoc/noAuthPageWrapper-hoc";
 import useAuth from "../../hooks/useAuth-hook";
 import { api } from "../../services/api-service";
 
@@ -84,7 +85,7 @@ const SignInPage = function () {
   );
 };
 
-export default SignInPage;
+export default noAuthPageWrapper(SignInPage);
 
 const SignInStyled = styled.main`
   ${pageStyle};

@@ -6,6 +6,7 @@ import buttonStyle from "../../assets/styles/buttonStyle";
 import formStyle from "../../assets/styles/formStyle";
 import inputStyle from "../../assets/styles/inputStyle";
 import pageStyle from "../../assets/styles/pageStyle";
+import noAuthPageWrapper from "../../hoc/noAuthPageWrapper-hoc";
 import { api } from "../../services/api-service";
 
 const SignUpPage = function () {
@@ -111,7 +112,7 @@ const SignUpPage = function () {
   );
 };
 
-export default SignUpPage;
+export default noAuthPageWrapper(SignUpPage);
 
 const SignUpStyled = styled.main`
   ${pageStyle};
