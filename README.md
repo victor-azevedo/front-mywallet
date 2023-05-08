@@ -2,7 +2,7 @@
 
 Front-end for My Wallet, a finance manager. :moneybag:
 
-![Cover ](./doc/cover.png)
+![Cover ](./doc/cover-mockup.png)
 
 ## About
 
@@ -12,8 +12,9 @@ My Wallet is a web browser application with which you can manage your personal e
 
 You can access the back-end repository at [Back-End APP](https://github.com/victor-azevedo/back-mywallet)
 
-You can access the deploy [here](https://victor-dev-mywallet.vercel.app/sign-in)
-Note: you must run the back-end server in your machine. Access the backend repository and follow the steps to run the server.
+## Deploy
+
+You can access the deploy [here](https://victor-dev-mywallet.vercel.app)
 
 ## How to run
 
