@@ -16,7 +16,8 @@ You can access the back-end repository at [Back-End APP](https://github.com/vict
 
 ## Deploy
 
-You can access the deploy [here](https://victor-dev-mywallet.vercel.app)
+You can access the deploy [here](https://victor-dev-mywallet.vercel.app).
+Please note that, as it is a free deployment, there might be a longer loading time when starting the application ⏳. We appreciate your patience 🙏!
 
 ## How to run
 
