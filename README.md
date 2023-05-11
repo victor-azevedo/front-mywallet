@@ -1,3 +1,5 @@
+| [:gb:](README.md) | [:brazil:](README_pt.md) |
+
 # My Wallet App Front-end
 
 Front-end for My Wallet, a finance manager. :moneybag:
