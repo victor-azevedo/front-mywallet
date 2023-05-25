@@ -7,9 +7,9 @@ import {
   lightTextColor,
 } from "../constants/colors";
 
-export default function Input({ label, ...rest }) {
+export default function Input({ label, value, ...rest }) {
   return (
-    <InputStyled>
+    <InputStyled inputValue={value}>
       <label>{label}</label>
       <input {...rest} />
     </InputStyled>
@@ -23,16 +23,17 @@ const PLACEHOLDER_COLOR = lightTextColor;
 
 const InputStyled = styled.div`
   width: 100%;
-  margin: 4px 0;
+  margin-top: 12px;
   label {
     color: ${LABEL_COLOR};
-
     font-size: 16px;
     font-weight: 600;
+    transition: opacity 0.2s ease-in-out;
+    opacity: ${({ inputValue }) => (inputValue ? 1 : 0)};
   }
   input {
     width: 100%;
-    margin: 8px 0;
+    margin-top: 4px;
     padding: 16px 12px;
     color: ${INPUT_COLOR};
     font-size: 20px;
