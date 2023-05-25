@@ -4,8 +4,8 @@ import styled from "styled-components";
 
 import buttonStyle from "../../assets/styles/buttonStyle";
 import formStyle from "../../assets/styles/formStyle";
-import inputStyle from "../../assets/styles/inputStyle";
 import pageStyle from "../../assets/styles/pageStyle";
+import Input from "../../components/Input";
 import noAuthPageWrapper from "../../hoc/noAuthPageWrapper-hoc";
 import { api } from "../../services/api-service";
 
@@ -59,8 +59,9 @@ const SignUpPage = function () {
     <SignUpStyled>
       <h1>My Wallet</h1>
       <form onSubmit={register}>
-        <input
+        <Input
           name="username"
+          label="Nome"
           value={form.username}
           onChange={handleForm}
           type="username"
@@ -69,18 +70,20 @@ const SignUpPage = function () {
           placeholder="Nome"
           disabled={isLoading}
           required
-        ></input>
-        <input
+        />
+        <Input
           name="email"
+          label="E-mail"
           value={form.email}
           onChange={handleForm}
           type="email"
           placeholder="E-mail"
           disabled={isLoading}
           required
-        ></input>
-        <input
+        />
+        <Input
           name="password"
+          label="Senha"
           value={form.password}
           onChange={handleForm}
           type="password"
@@ -89,9 +92,10 @@ const SignUpPage = function () {
           placeholder="Senha"
           disabled={isLoading}
           required
-        ></input>
-        <input
+        />
+        <Input
           name="confirmPassword"
+          label="Confirme sua senha"
           value={form.confirmPassword}
           onChange={handleForm}
           type="password"
@@ -100,7 +104,7 @@ const SignUpPage = function () {
           placeholder="Confirme a senha"
           disabled={isLoading}
           required
-        ></input>
+        />
         <button className="btn" type="submit" disabled={isLoading}>
           Cadastrar
         </button>
@@ -123,10 +127,7 @@ const SignUpStyled = styled.main`
   }
   form {
     ${formStyle};
-    input {
-      ${inputStyle};
-      width: 100%;
-    }
+
     button {
       ${buttonStyle};
       width: 100%;
