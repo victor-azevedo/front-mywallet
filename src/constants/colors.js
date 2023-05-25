@@ -9,5 +9,7 @@ export const labelTextColor = "#FFF";
 
 export const buttonTextColor = "#FFF";
 
+export const linkTextColor = "#FFF";
+
 export const incomingColor = "#03AC00";
 export const outgoingColor = "#C70000";
