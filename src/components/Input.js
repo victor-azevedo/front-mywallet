@@ -1,4 +1,5 @@
 import React from "react";
+import CurrencyInput from "react-currency-input-field";
 import styled from "styled-components";
 
 import {
@@ -7,11 +8,11 @@ import {
   lightTextColor,
 } from "../constants/colors";
 
-export default function Input({ label, value, ...rest }) {
+export default function Input({ label, value, isCurrency, ...rest }) {
   return (
     <InputStyled inputValue={value}>
       <label>{label}</label>
-      <input {...rest} />
+      {isCurrency ? <CurrencyInput {...rest} /> : <input {...rest} />}
     </InputStyled>
   );
 }

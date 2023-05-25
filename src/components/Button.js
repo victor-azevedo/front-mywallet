@@ -9,6 +9,7 @@ export default function Button({ children, ...rest }) {
 
 const BUTTON_BG_COLOR = accentColor;
 const BUTTON_COLOR = buttonTextColor;
+const BUTTON_MARGIN = "24px";
 
 const ButtonStyled = styled.button`
   width: 100%;
@@ -17,11 +18,12 @@ const ButtonStyled = styled.button`
   align-items: center;
   justify-content: center;
   text-align: center;
-  margin: 16px 0;
+  margin: ${BUTTON_MARGIN} 0;
   padding: 16px 12px;
   color: ${BUTTON_COLOR};
   font-size: 20px;
   font-weight: 700;
+  text-transform: capitalize;
   border-radius: 5px;
   border-style: none;
   box-shadow: rgba(0, 0, 0, 0.45) 0px 20px 15px -15px;

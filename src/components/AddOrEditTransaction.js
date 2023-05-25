@@ -1,14 +1,12 @@
-import { useState } from "react";
-import CurrencyInput from "react-currency-input-field";
+import { RollbackOutlined } from "@ant-design/icons";
+import { useRef, useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import styled from "styled-components";
 
-import { RollbackOutlined } from "@ant-design/icons";
-import { useRef } from "react";
-import buttonStyle from "../assets/styles/buttonStyle";
-import inputStyle from "../assets/styles/inputStyle";
 import pageStyle from "../assets/styles/pageStyle";
 import useApiAuth from "../hooks/useApiAuth-hook";
+import Button from "./Button";
+import Input from "./Input";
 
 const AddOrEditTransaction = function ({ type }) {
   const apiAuth = useApiAuth();
@@ -96,33 +94,36 @@ const AddOrEditTransaction = function ({ type }) {
         </Link>
       </Header>
       <Form onSubmit={sendTransaction}>
-        <CurrencyInput
+        <Input
           name="value"
           allowNegativeValue={false}
           decimalSeparator=","
           groupSeparator="."
           decimalsLimit={2}
           decimalScale={2}
+          label="Valor"
           placeholder="Valor"
           value={form.value}
           onValueChange={(value) => setForm({ ...form, value })}
           disabled={isLoading}
           required
-        ></CurrencyInput>
-        <input
+          isCurrency
+        />
+        <Input
           name="description"
           value={form.description}
           onChange={handleForm}
           type="text"
+          label="Descrição"
           placeholder="Descrição"
           disabled={isLoading}
           minLength="4"
           maxLength="30"
           required
-        ></input>
-        <button className="btn" type="submit" disabled={isLoading}>
+        />
+        <Button type="submit" disabled={isLoading}>
           Salvar {renderTypeText()}
-        </button>
+        </Button>
       </Form>
     </AddTransactionStyled>
   );
@@ -147,15 +148,4 @@ const Header = styled.header`
 
 const Form = styled.form`
   width: 100%;
-  input {
-    ${inputStyle}
-    width: 100%;
-    margin: 15px 0;
-  }
-  .btn {
-    ${buttonStyle}
-    text-transform: capitalize;
-    width: 100%;
-    margin: 15px 0;
-  }
 `;
