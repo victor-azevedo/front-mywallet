@@ -76,7 +76,7 @@ const SignInPage = function () {
           maxLength="12"
           required
         />
-        <Button className="btn" type="submit" disabled={isLoading}>
+        <Button type="submit" disabled={isLoading}>
           Entrar
         </Button>
       </form>
