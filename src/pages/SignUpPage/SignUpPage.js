@@ -105,7 +105,7 @@ const SignUpPage = function () {
           disabled={isLoading}
           required
         />
-        <Button className="btn" type="submit" disabled={isLoading}>
+        <Button type="submit" disabled={isLoading}>
           Cadastrar
         </Button>
       </form>
