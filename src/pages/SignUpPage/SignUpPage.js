@@ -2,9 +2,9 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-import buttonStyle from "../../assets/styles/buttonStyle";
 import formStyle from "../../assets/styles/formStyle";
 import pageStyle from "../../assets/styles/pageStyle";
+import Button from "../../components/Button";
 import Input from "../../components/Input";
 import noAuthPageWrapper from "../../hoc/noAuthPageWrapper-hoc";
 import { api } from "../../services/api-service";
@@ -105,9 +105,9 @@ const SignUpPage = function () {
           disabled={isLoading}
           required
         />
-        <button className="btn" type="submit" disabled={isLoading}>
+        <Button className="btn" type="submit" disabled={isLoading}>
           Cadastrar
-        </button>
+        </Button>
       </form>
       <Link to="/sign-in">
         <p className="text-accent">Já tem uma conta? Entre agora!</p>
@@ -127,11 +127,6 @@ const SignUpStyled = styled.main`
   }
   form {
     ${formStyle};
-
-    button {
-      ${buttonStyle};
-      width: 100%;
-    }
   }
   p {
     color: #fff;
