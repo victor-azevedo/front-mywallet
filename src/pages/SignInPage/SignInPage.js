@@ -1,11 +1,12 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 import formStyle from "../../assets/styles/formStyle";
 import pageStyle from "../../assets/styles/pageStyle";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
+import Redirect from "../../components/Redirect";
 import noAuthPageWrapper from "../../hoc/noAuthPageWrapper-hoc";
 import useAuth from "../../hooks/useAuth-hook";
 import { api } from "../../services/api-service";
@@ -80,9 +81,11 @@ const SignInPage = function () {
           Entrar
         </Button>
       </form>
-      <Link to="/sign-up">
-        <p className="text-accent">Primeira vez? Cadastre-se!</p>
-      </Link>
+      <Redirect
+        message="Primeira vez?"
+        linkMessage="Cadastre-se!"
+        to="/sign-up"
+      />
     </SignInStyled>
   );
 };
@@ -98,13 +101,5 @@ const SignInStyled = styled.main`
   }
   form {
     ${formStyle};
-  }
-  p {
-    color: #fff;
-    margin-top: 20px;
-    font-family: "Raleway";
-    font-weight: 700;
-    font-size: 15px;
-    line-height: 18px;
   }
 `;

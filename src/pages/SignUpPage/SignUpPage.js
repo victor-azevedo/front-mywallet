@@ -1,11 +1,12 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 import formStyle from "../../assets/styles/formStyle";
 import pageStyle from "../../assets/styles/pageStyle";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
+import Redirect from "../../components/Redirect";
 import noAuthPageWrapper from "../../hoc/noAuthPageWrapper-hoc";
 import { api } from "../../services/api-service";
 
@@ -109,9 +110,11 @@ const SignUpPage = function () {
           Cadastrar
         </Button>
       </form>
-      <Link to="/sign-in">
-        <p className="text-accent">Já tem uma conta? Entre agora!</p>
-      </Link>
+      <Redirect
+        message="Já tem uma conta?"
+        linkMessage="Entre agora!"
+        to="/sign-in"
+      />
     </SignUpStyled>
   );
 };
