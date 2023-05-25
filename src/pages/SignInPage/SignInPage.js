@@ -2,10 +2,10 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-import buttonStyle from "../../assets/styles/buttonStyle";
 import formStyle from "../../assets/styles/formStyle";
-import inputStyle from "../../assets/styles/inputStyle";
 import pageStyle from "../../assets/styles/pageStyle";
+import Button from "../../components/Button";
+import Input from "../../components/Input";
 import noAuthPageWrapper from "../../hoc/noAuthPageWrapper-hoc";
 import useAuth from "../../hooks/useAuth-hook";
 import { api } from "../../services/api-service";
@@ -54,29 +54,31 @@ const SignInPage = function () {
     <SignInStyled>
       <h1>My Wallet</h1>
       <form onSubmit={login}>
-        <input
+        <Input
           name="email"
           value={form.email}
           onChange={handleForm}
           type="email"
+          label="E-mail"
           placeholder="E-mail"
           disabled={isLoading}
           required
-        ></input>
-        <input
+        />
+        <Input
           name="password"
           value={form.password}
           onChange={handleForm}
           type="password"
+          label="Senha"
           placeholder="Senha"
           disabled={isLoading}
           minLength="6"
           maxLength="12"
           required
-        ></input>
-        <button className="btn" type="submit" disabled={isLoading}>
+        />
+        <Button className="btn" type="submit" disabled={isLoading}>
           Entrar
-        </button>
+        </Button>
       </form>
       <Link to="/sign-up">
         <p className="text-accent">Primeira vez? Cadastre-se!</p>
@@ -96,14 +98,6 @@ const SignInStyled = styled.main`
   }
   form {
     ${formStyle};
-    input {
-      ${inputStyle};
-      width: 100%;
-    }
-    .btn {
-      ${buttonStyle};
-      width: 100%;
-    }
   }
   p {
     color: #fff;
