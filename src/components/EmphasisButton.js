@@ -1,37 +1,18 @@
 import React from "react";
 import styled from "styled-components";
 
-import { accentColor, buttonTextColor } from "../constants/colors";
+import { ButtonStyled } from "./Button";
 
 export default function EmphasisButton({ children, text, ...rest }) {
   return (
-    <ButtonStyled {...rest}>
+    <EmphasisButtonStyled {...rest}>
       {children}
       <span>{text}</span>
-    </ButtonStyled>
+    </EmphasisButtonStyled>
   );
 }
 
-const BUTTON_BG_COLOR = accentColor;
-const BUTTON_COLOR = buttonTextColor;
-
-const ButtonStyled = styled.button`
-  width: 100%;
-  background-color: ${BUTTON_BG_COLOR};
-  color: ${BUTTON_COLOR};
-  border-radius: 5px;
-  border-style: none;
-  box-shadow: rgba(0, 0, 0, 0.45) 0px 20px 15px -15px;
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
-  &:active {
-    box-shadow: rgba(0, 0, 0, 0.45) 0px 5px 15px -5px;
-  }
-  &:disabled {
-    opacity: 0.7;
-    box-shadow: rgba(0, 0, 0, 0.45) 0px 5px 15px -15px;
-  }
-
+const EmphasisButtonStyled = styled(ButtonStyled)`
   height: 100%;
   flex: 1 0 45%;
   margin: 0;

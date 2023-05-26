@@ -11,7 +11,7 @@ const BUTTON_BG_COLOR = accentColor;
 const BUTTON_COLOR = buttonTextColor;
 const BUTTON_MARGIN = "24px";
 
-const ButtonStyled = styled.button`
+export const ButtonStyled = styled.button`
   width: 100%;
   background-color: ${BUTTON_BG_COLOR};
   display: flex;
@@ -35,5 +35,8 @@ const ButtonStyled = styled.button`
   &:disabled {
     opacity: 0.7;
     box-shadow: rgba(0, 0, 0, 0.45) 0px 5px 15px -15px;
+  }
+  &:hover {
+    transform: scale(1.02);
   }
 `;
