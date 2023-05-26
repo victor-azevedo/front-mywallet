@@ -7,8 +7,8 @@ import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-import buttonStyle from "../../assets/styles/buttonStyle";
 import pageStyle from "../../assets/styles/pageStyle";
+import ButtonStyled from "../../components/EmphasisButton";
 import Transactions from "../../components/Transactions";
 import { lightTextColor, textColor } from "../../constants/colors";
 import authPageWrapper from "../../hoc/authPageWrapper-hoc";
@@ -79,14 +79,18 @@ const WalletPage = function () {
             />
           </BoxTransactions>
           <BoxButtons>
-            <button onClick={() => navigate("/incoming")}>
+            <ButtonStyled
+              onClick={() => navigate("/incoming")}
+              text="Nova entrada"
+            >
               <PlusCircleOutlined />
-              <span>Nova entrada</span>
-            </button>
-            <button onClick={() => navigate("/outgoing")}>
+            </ButtonStyled>
+            <ButtonStyled
+              onClick={() => navigate("/outgoing")}
+              text="Nova saída"
+            >
               <MinusCircleOutlined />
-              <span>Nova saída</span>
-            </button>
+            </ButtonStyled>
           </BoxButtons>
         </WalletPageStyled>
       ) : (
@@ -141,22 +145,4 @@ const BoxButtons = styled.div`
   justify-content: space-between;
   align-items: center;
   gap: 15px;
-  button {
-    ${buttonStyle}
-    flex: 1 0 45%;
-    margin: 0;
-    padding: 10px 10px;
-    height: 100%;
-    font-size: 17px;
-    line-height: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: flex-start;
-    span {
-      display: block;
-      max-width: 85px;
-      text-align: left;
-    }
-  }
 `;
